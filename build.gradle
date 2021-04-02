@@ -1,0 +1,38 @@
+plugins {
+    //id 'org.springframework.boot' version '2.1.3.RELEASE'
+    //id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+group = 'com.navi'
+version = '1.0'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+jar {
+    archiveBaseName = 'geektrust' //Please do not change this final artifact name
+    version = null               //Please do not change this final artifact version
+    //archiveBaseVersion = null     //Please do not change this final artifact version
+    manifest {
+        attributes 'Main-Class': 'com.navi.stock_exchange.StockExchangeApplication'
+        //This is main class of your program which will be executed
+    }
+
+    // To create a single jar with all dependencies.
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    } {
+        exclude "META-INF/*.SF"
+        exclude "META-INF/*.DSA"
+        exclude "META-INF/*.RSA"
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'joda-time:joda-time:2.10.6'
+    compileOnly 'org.projectlombok:lombok:1.18.16'
+    annotationProcessor 'org.projectlombok:lombok:1.18.16'}
